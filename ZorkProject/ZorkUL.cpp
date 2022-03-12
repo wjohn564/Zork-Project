@@ -1,5 +1,6 @@
 #include <iostream>
 
+
 using namespace std;
 #include "ZorkUL.h"
 
@@ -15,7 +16,6 @@ ZorkUL::ZorkUL() {
 
 void ZorkUL::createRooms()  {
     Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j;
-
 	a = new Room("a");
         a->addItem(new Item("x", 1, 11));
         a->addItem(new Item("y", 2, 22));
@@ -30,7 +30,7 @@ void ZorkUL::createRooms()  {
 	h = new Room("h");
 	i = new Room("i");
     j = new Room("j");
-        j->addItem(new Item("GLIZZY", 1, 69));
+    j->addItem(new Item("GLIZZY", 1, 69));
 
 //             (N, E, S, W)
 	a->setExits(f, b, d, c);
@@ -46,6 +46,17 @@ void ZorkUL::createRooms()  {
 
 
         currentRoom = a;
+
+     arr.push_back(a);
+     arr.push_back(b);
+     arr.push_back(c);
+     arr.push_back(d);
+     arr.push_back(e);
+     arr.push_back(f);
+     arr.push_back(g);
+     arr.push_back(h);
+     arr.push_back(i);
+     arr.push_back(j);
 }
 
 /**
@@ -132,6 +143,7 @@ bool ZorkUL::processCommand(Command command) {
     else if (commandWord.compare("put") == 0)
     {
 
+
     }
     /*
     {
@@ -148,9 +160,16 @@ bool ZorkUL::processCommand(Command command) {
     else if (commandWord.compare("quit") == 0) {
 		if (command.hasSecondWord())
 			cout << "overdefined input"<< endl;
-		else
+        else
 			return true; /**signal to quit*/
-	}
+
+    } else if (commandWord.compare("teleport") == 0){
+        if(command.hasSecondWord()){
+            teleport(command.getSecondWord());
+            cout << currentRoom->longDescription() << endl;
+        }
+
+    }
 	return false;
 }
 /** COMMANDS **/
@@ -193,11 +212,15 @@ string ZorkUL::go(string direction) {
 	}
 }
 
-    //*void ZorkUL::teleport(char room){
-     //   if(room == 'a'){
+void ZorkUL::teleport(string roomDes){
 
-     //   }
+    for(int i = 0; i<arr.size(); i++){
+        if( arr.at(i)->shortDescription() == roomDes){
+            currentRoom = arr.at(i);
+            return;
 
 
-    //}
+        }
+    }
+}
 

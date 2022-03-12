@@ -12,7 +12,8 @@ using namespace std;
 class ZorkUL {
 private:
 	Parser parser;
-	Room *currentRoom;
+    vector<Room*> arr;
+    Room *currentRoom;
 	void createRooms();
 	void printWelcome();
 	bool processCommand(Command command);
@@ -20,7 +21,8 @@ private:
 	void goRoom(Command command);
     void createItems();
     void displayItems();
-    void teleport(char room);
+    void teleport(string room);
+
 
 public:
 	ZorkUL();
