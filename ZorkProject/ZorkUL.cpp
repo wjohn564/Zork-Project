@@ -15,34 +15,36 @@ ZorkUL::ZorkUL() {
 }
 
 void ZorkUL::createRooms()  {
-    Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j;
-	a = new Room("a");
+    Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j, *k;
+    a = new Room("Rendezvous");
         a->addItem(new Item("x", 1, 11));
         a->addItem(new Item("y", 2, 22));
-	b = new Room("b");
+    b = new Room("East Rampart");
         b->addItem(new Item("xx", 3, 33));
         b->addItem(new Item("yy", 4, 44));
-	c = new Room("c");
-	d = new Room("d");
-	e = new Room("e");
-	f = new Room("f");
-	g = new Room("g");
-	h = new Room("h");
-	i = new Room("i");
-    j = new Room("j");
+    c = new Room("West Rampart");
+    d = new Room("South Rampart");
+    e = new Room("Kings Keep");
+    f = new Room("North Rampart");
+    g = new Room("The Library");
+    h = new Room("The Armoury");
+    i = new Room("Mages Quaters");
+    j = new Room("Sketchy Rope");
     j->addItem(new Item("GLIZZY", 1, 69));
+    k = new Room("The Courtyard");
 
 //             (N, E, S, W)
-	a->setExits(f, b, d, c);
-	b->setExits(NULL, NULL, NULL, a);
-	c->setExits(NULL, a, NULL, NULL);
-    d->setExits(a, e, j, i);
-	e->setExits(NULL, NULL, NULL, d);
-	f->setExits(NULL, g, a, h);
-	g->setExits(NULL, NULL, NULL, f);
-	h->setExits(NULL, f, NULL, NULL);
-    i->setExits(NULL, d, NULL, NULL);
+    a->setExits(j, NULL, NULL, NULL);
+    b->setExits(NULL, NULL, e, k);
+    c->setExits(h, k, NULL, NULL);
+    d->setExits(k, e, NULL, i);
+    e->setExits(NULL, NULL, NULL, NULL);
+    f->setExits(NULL, g, k, NULL);
+    g->setExits(NULL, NULL, b, NULL);
+    h->setExits(NULL, f, NULL, NULL);
+    i->setExits(c, NULL, NULL, NULL);
     j->setExits(d, NULL, NULL, NULL);
+    k->setExits(NULL, NULL, NULL, NULL);
 
 
         currentRoom = a;
@@ -57,6 +59,7 @@ void ZorkUL::createRooms()  {
      arr.push_back(h);
      arr.push_back(i);
      arr.push_back(j);
+     arr.push_back(k);
 }
 
 /**
@@ -106,16 +109,17 @@ bool ZorkUL::processCommand(Command command) {
 
 	else if (commandWord.compare("map") == 0)
 		{
-        cout << "[h] --- [f] --- [g]" << endl;
-		cout << "         |         " << endl;
-        cout << "         |         " << endl;
-		cout << "[c] --- [a] --- [b]" << endl;
-		cout << "         |         " << endl;
-		cout << "         |         " << endl;
-		cout << "[i] --- [d] --- [e]" << endl;
-        cout << "         |         " << endl;
-        cout << "         |         " << endl;
-        cout << "        [j]        " << endl;
+        cout << " [The Armoury] --- [North Rampart] --- [The Library] " << endl;
+        cout << "       |                  |                  |       " << endl;
+        cout << "       |                  |                  |       " << endl;
+        cout << "[West Rampart] --- [The Courtyard] --- [East Rampart]" << endl;
+        cout << "       |                  |                  |       " << endl;
+        cout << "       |                  |                  |       " << endl;
+        cout << "[Mages Quaters] --- [South Rampart] --- [Kings Keep] " << endl;
+        cout << "                          |                          " << endl;
+        cout << "                    [Sketchy Rope]                   " << endl;
+        cout << "                          |                          " << endl;
+        cout << "                    [Rendezvous]                     " << endl;
 		}
 
 	else if (commandWord.compare("go") == 0)
