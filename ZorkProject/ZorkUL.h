@@ -7,6 +7,7 @@
 #include "item.h"
 #include <iostream>
 #include <string>
+#include "Wordle.h"
 using namespace std;
 
 class ZorkUL {
@@ -28,6 +29,10 @@ public:
 	ZorkUL();
 	void play();
 	string go(string direction);
+    //public variable that stops player from progressing past mages tower without completing wordle
+    bool roomDecipher;
+    //public variable to determine whether the player is alive or dead
+    bool isAlive;
 };
 
 #endif /*ZORKUL_H_*/

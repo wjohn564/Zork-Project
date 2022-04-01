@@ -29,8 +29,8 @@ void ZorkUL::createRooms()  {
     g = new Room("The Library");
     h = new Room("The Armoury");
     i = new Room("Mages Quaters");
+    i->addItem(new Item("sus-pen", 1, 2500));
     j = new Room("Sketchy Rope");
-    j->addItem(new Item("GLIZZY", 1, 69));
     k = new Room("The Courtyard");
 
 //             (N, E, S, W)
@@ -68,11 +68,16 @@ void ZorkUL::createRooms()  {
 void ZorkUL::play() {
 	printWelcome();
 
+    //Public variable to stop mages tower progression without wordle
+    roomDecipher = false;
+    //public variable to determine whether the player is alive or dead
+    isAlive = true;
+
 	// Enter the main command loop.  Here we repeatedly read commands and
 	// execute them until the ZorkUL game is over.
 
 	bool finished = false;
-	while (!finished) {
+    while (!finished && isAlive) {
 		// Create pointer to command and give it a command.
 		Command* command = parser.getCommand();
 		// Pass dereferenced command and check for end of game.
@@ -86,7 +91,10 @@ void ZorkUL::play() {
 }
 
 void ZorkUL::printWelcome() {
-	cout << "start"<< endl;
+    cout << "Welcome to Zork, You have had enough of King Extontor's" << endl;
+    cout << "lectures and have come to Assassinate him and steal his gold" << endl;
+    cout << "Brown Thomas the kings jester feels the same way and has dropped a rope" << endl;
+    cout << "that you may use to enter the castle from the south rampart" <<endl;
 	cout << "info for help"<< endl;
 	cout << endl;
 	cout << currentRoom->longDescription() << endl;
@@ -137,6 +145,14 @@ bool ZorkUL::processCommand(Command command) {
         if (location  < 0 )
             cout << "item is not in room" << endl;
         else
+            //Added if statement
+            if(command.getSecondWord() == "sus-pen" && currentRoom == arr[8]){
+                Wordle rune = Wordle("gamer", 5);
+                //Player returns boolean which determines whether you die or win and continue
+                isAlive = rune.Play();
+                //allows you to continue if you win
+                roomDecipher = true;
+            }
             cout << "item is in room" << endl;
             cout << "index number " << + location << endl;
             cout << endl;
@@ -190,6 +206,12 @@ void ZorkUL::goRoom(Command command) {
 	}
 
 	string direction = command.getSecondWord();
+    //if statement to stop progression without doing wordle in mages tower
+    if(direction == "north" && currentRoom == arr[8] && !roomDecipher){
+        cout<<"The Rune made you catch fire and implode..... You died" << endl;
+        isAlive = false;
+        return;
+    }
 
 	// Try to leave current room.
 	Room* nextRoom = currentRoom->nextRoom(direction);
@@ -199,6 +221,16 @@ void ZorkUL::goRoom(Command command) {
 	else {
 		currentRoom = nextRoom;
 		cout << currentRoom->longDescription() << endl;
+        if (currentRoom == arr[8]){
+            cout << "There is a Rune on the door that won't let you pass. you must decipher the mages password from his journal to continue." << endl;
+
+        }
+        //if Statement that makes you fall to your death if you enter the courtyard from the ramparts
+        if(currentRoom == arr[10]){
+            isAlive = false;
+            cout << "You fell 100 meters off the rampart and" <<endl;
+            cout << "splatted on the ground to your death...." <<endl;
+        }
 	}
 }
 
