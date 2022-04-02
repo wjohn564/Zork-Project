@@ -8,28 +8,34 @@ Wordle::Wordle(std::string wordToUse,int maxAttempts) {
 }
 
 bool Wordle::Play() {
+    //initial message
    cout << "The Mages pen beckons you to write a word onto the rune!"<< endl;
+   cout << "The Rune has five highlighted square spaces to write on "<< endl;
+   //Set game to be unsolved
     bool isSolved = false;
     string inputWord;
     int currentAttempts = 0;
     cout << "World lenght: " << word.length() << " you have " << attempts << " attempts" << std::endl;
     while (!isSolved) {
     cout << "Enter your word." << std::endl;
+    //Use do to take in input before checking with while loop
         do {
               cin >> inputWord;
+    //make sure word typed in is same length as wordle
         } while (!CheckInput(inputWord));
 
         isSolved = ParseWord(inputWord);
         currentAttempts++;
         if (currentAttempts > attempts) {
-            cout << "Failed" << std::endl;
+            cout << "You Failed to disenchant the door and you die from embarrassment...." << std::endl;
             return false;
         }
     }
-    cout << "Success" << std::endl;
+    cout << "Success! The rune vanished, you may continue safely" << std::endl;
     return true;
 }
 
+//Function that checks if correct number of characters are inputted.
 bool Wordle::CheckInput(string input) {
     if (input.length() != word.length()) {
         cout << "Bad Input!" <<endl;
@@ -38,9 +44,11 @@ bool Wordle::CheckInput(string input) {
     return true;
 }
 
+//Function that returns the colour of the letters
 bool Wordle::ParseWord(string wordToParse) {
     string line = "";
 
+//build up a String of the colours of the letter inputs depending on correctness
     for (int i = 0; i < wordToParse.length(); i++) {
         if (wordToParse[i] == word[i]) {
             line += "G";
@@ -65,6 +73,7 @@ bool Wordle::ParseWord(string wordToParse) {
 
 }
 
+//Function that takes character and String that returns bool dependent on if character is in string for yellow inputs
 bool Wordle::Contains(char character, string word) {
     for (int i = 0; i < word.length(); i++) {
         if (word[i] == character) {

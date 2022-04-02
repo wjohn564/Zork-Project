@@ -222,7 +222,7 @@ void ZorkUL::goRoom(Command command) {
 		currentRoom = nextRoom;
 		cout << currentRoom->longDescription() << endl;
         if (currentRoom == arr[8]){
-            cout << "There is a Rune on the door that won't let you pass. you must decipher the mages password from his journal to continue." << endl;
+            cout << "There is a Rune on the door that won't let you pass. you must decipher the mages password to continue." << endl;
 
         }
         //if Statement that makes you fall to your death if you enter the courtyard from the ramparts

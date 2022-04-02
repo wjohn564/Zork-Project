@@ -5,7 +5,9 @@
 class Wordle
 {
 public:
+    //constructor
     Wordle(std::string wordToUse, int numAttempts);
+    //function to begin
     bool Play();
 private:
     std::string word;
