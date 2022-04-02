@@ -23,6 +23,13 @@ private:
     void createItems();
     void displayItems();
     void teleport(string room);
+    void use(string item);
+    bool hasSword;
+    bool hasPen;
+
+
+
+
 
 
 public:
@@ -33,6 +40,9 @@ public:
     bool roomDecipher;
     //public variable to determine whether the player is alive or dead
     bool isAlive;
+    //destructor for zorkul variables
+    ~ZorkUL();
+
 };
 
 #endif /*ZORKUL_H_*/

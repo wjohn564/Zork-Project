@@ -13,7 +13,6 @@ int main(int argc, char** argv) {
 ZorkUL::ZorkUL() {
 	createRooms();
 }
-
 void ZorkUL::createRooms()  {
     Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j, *k;
     a = new Room("Rendezvous");
@@ -28,6 +27,7 @@ void ZorkUL::createRooms()  {
     f = new Room("North Rampart");
     g = new Room("The Library");
     h = new Room("The Armoury");
+    h->addItem(new Item("kingslayer",100,10000));
     i = new Room("Mages Quaters");
     i->addItem(new Item("sus-pen", 1, 2500));
     j = new Room("Sketchy Rope");
@@ -67,11 +67,12 @@ void ZorkUL::createRooms()  {
  */
 void ZorkUL::play() {
 	printWelcome();
-
     //Public variable to stop mages tower progression without wordle
     roomDecipher = false;
     //public variable to determine whether the player is alive or dead
     isAlive = true;
+    hasPen = false;
+    hasSword = false;
 
 	// Enter the main command loop.  Here we repeatedly read commands and
 	// execute them until the ZorkUL game is over.
@@ -144,7 +145,7 @@ bool ZorkUL::processCommand(Command command) {
         int location = currentRoom->isItemInRoom(command.getSecondWord());
         if (location  < 0 )
             cout << "item is not in room" << endl;
-        else
+         else{
             //Added if statement
             if(command.getSecondWord() == "sus-pen" && currentRoom == arr[8]){
                 Wordle rune = Wordle("gamer", 5);
@@ -152,7 +153,14 @@ bool ZorkUL::processCommand(Command command) {
                 isAlive = rune.Play();
                 //allows you to continue if you win
                 roomDecipher = true;
+                hasPen = true;
             }
+             if(command.getSecondWord() == "kingslayer" && currentRoom == arr[7]){
+                 hasSword = true;
+             }
+
+        }
+
             cout << "item is in room" << endl;
             cout << "index number " << + location << endl;
             cout << endl;
@@ -160,11 +168,11 @@ bool ZorkUL::processCommand(Command command) {
         }
     }
 
-    else if (commandWord.compare("put") == 0)
-    {
+    //else if (commandWord.compare("put") == 0)
+    //{
 
 
-    }
+   // }
     /*
     {
     if (!command.hasSecondWord()) {
@@ -188,8 +196,28 @@ bool ZorkUL::processCommand(Command command) {
             teleport(command.getSecondWord());
             cout << currentRoom->longDescription() << endl;
         }
+    //command to use item in inventory
+    }else if(commandWord.compare("use") == 0){
+        if (command.hasSecondWord()){
+            if (command.getSecondWord()== "kingslayer" && hasSword){
+                //implement later
+            }else if(command.getSecondWord()== "sus-pen" && hasPen){
+                //implement later
+            }
+
 
     }
+
+
+}else if(commandWord.compare("inventory") == 0){
+        if(hasSword)
+            cout<< "kingslayer" <<endl;
+        if(hasPen)
+            cout<< "sus-pen";
+        cout<<endl;
+
+    }
+
 	return false;
 }
 /** COMMANDS **/
@@ -258,5 +286,11 @@ void ZorkUL::teleport(string roomDes){
 
         }
     }
+
 }
+//destructor for class
+ZorkUL::~ZorkUL(){
+    delete currentRoom;
+}
+
 

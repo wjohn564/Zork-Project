@@ -1,7 +1,6 @@
 #include "Room.h"
 #include "Command.h"
 
-
 Room::Room(string description) {
 	this->description = description;
 }
@@ -86,5 +85,14 @@ int Room::isItemInRoom(string inString)
             }
         }
     return -1;
+}
+//Destructor for class
+Room::~Room(){
+    //iterates over the map and deletes the room references
+    //auto recognises that its a pair on only removes Room pointer
+    for (auto const& p : exits)
+    {
+       delete p.second;
+    }
 }
 

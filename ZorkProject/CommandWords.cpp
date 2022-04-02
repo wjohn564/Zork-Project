@@ -15,6 +15,8 @@ CommandWords::CommandWords() {
 		validCommands.push_back("take");
 		validCommands.push_back("put");
         validCommands.push_back("teleport");
+        validCommands.push_back("use");
+        validCommands.push_back("inventory");
 
 	}
 }

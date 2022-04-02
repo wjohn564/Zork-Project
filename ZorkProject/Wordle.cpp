@@ -11,11 +11,16 @@ bool Wordle::Play() {
     //initial message
    cout << "The Mages pen beckons you to write a word onto the rune!"<< endl;
    cout << "The Rune has five highlighted square spaces to write on "<< endl;
+   cout<<endl;
+   cout<<"The mages journal journal beside the pen has a lot of erotic overly explained"<<endl;
+   cout<< "scenarios.... but it also contains a clue!"<<endl;
+   cout<<endl;
+   cout<<"This person never leaves his room but always manages to have fun~"<<endl;
    //Set game to be unsolved
     bool isSolved = false;
     string inputWord;
     int currentAttempts = 0;
-    cout << "World lenght: " << word.length() << " you have " << attempts << " attempts" << std::endl;
+    cout << "Word lenght: " << word.length() << " you have " << attempts << " attempts" << std::endl;
     while (!isSolved) {
     cout << "Enter your word." << std::endl;
     //Use do to take in input before checking with while loop

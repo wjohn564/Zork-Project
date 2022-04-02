@@ -53,3 +53,8 @@ Command* Parser::getCommand() {
 void Parser::showCommands() {
 	commands->showAll();
 }
+
+//Destructor for class
+Parser::~Parser(){
+    delete commands;
+}

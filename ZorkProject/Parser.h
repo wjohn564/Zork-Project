@@ -12,6 +12,7 @@ public:
 	Parser();
 	Command* getCommand();
 	void showCommands();
+    ~Parser();
 };
 
 #endif /*PARSER_H_*/
