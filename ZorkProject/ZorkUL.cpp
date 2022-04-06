@@ -12,20 +12,18 @@ int main(int argc, char** argv) {
 
 ZorkUL::ZorkUL() {
 	createRooms();
+
 }
 void ZorkUL::createRooms()  {
     Room *a, *b, *c, *d, *e, *f, *g, *h, *i, *j, *k;
     a = new Room("Rendezvous");
-        a->addItem(new Item("x", 1, 11));
-        a->addItem(new Item("y", 2, 22));
     b = new Room("East Rampart");
-        b->addItem(new Item("xx", 3, 33));
-        b->addItem(new Item("yy", 4, 44));
     c = new Room("West Rampart");
     d = new Room("South Rampart");
     e = new Room("Kings Keep");
     f = new Room("North Rampart");
     g = new Room("The Library");
+        g->addItem(new Item("book", 25, 50 ));
     h = new Room("The Armoury");
     h->addItem(new Item("kingslayer",100,10000));
     i = new Room("Mages Quaters");
@@ -73,6 +71,8 @@ void ZorkUL::play() {
     isAlive = true;
     hasPen = false;
     hasSword = false;
+    hasBook = false;
+    win = false;
 
 	// Enter the main command loop.  Here we repeatedly read commands and
 	// execute them until the ZorkUL game is over.
@@ -86,7 +86,11 @@ void ZorkUL::play() {
 		// Free the memory allocated by "parser.getCommand()"
 		//   with ("return new Command(...)")
 		delete command;
-	}
+        if(win) break;
+    }if(win){
+     cout<<   "You have slain the king and plundered the treasure behind his throne!"<<endl;
+    cout<< "You have beaten the game"<<endl;
+    }
 	cout << endl;
 	cout << "end" << endl;
 }
@@ -158,6 +162,9 @@ bool ZorkUL::processCommand(Command command) {
              if(command.getSecondWord() == "kingslayer" && currentRoom == arr[7]){
                  hasSword = true;
              }
+             if(command.getSecondWord() == "book" && currentRoom == arr[6]){
+                 hasBook = true;
+             }
 
         }
 
@@ -199,14 +206,25 @@ bool ZorkUL::processCommand(Command command) {
     //command to use item in inventory
     }else if(commandWord.compare("use") == 0){
         if (command.hasSecondWord()){
-            if (command.getSecondWord()== "kingslayer" && hasSword){
-                //implement later
-            }else if(command.getSecondWord()== "sus-pen" && hasPen){
-                //implement later
-            }
+            if (command.getSecondWord()== "kingslayer" && hasSword && currentRoom == arr[4]){
+                //makes sword third item for boss fight
+               isAlive = boss.inputEncounter('c');
+            }else if(command.getSecondWord()== "sus-pen" && hasPen && currentRoom == arr[4]){
+                //makes pen first item for boss fight
+               isAlive = boss.inputEncounter('a');
+            }else if(command.getSecondWord()== "book" && hasBook){
+                cout<< "To kill the King one must" <<endl;
+                cout<<"1. Remove his rune"<<endl;
+                cout<<"2. Distract him" <<endl;
+                cout<<"3. Use the blade that removes those from the throne"<<endl;
+              }
+
 
 
     }
+        if(arr[4]){
+            win = boss.sequenceComplete();
+        }
 
 
 }else if(commandWord.compare("inventory") == 0){
@@ -214,10 +232,19 @@ bool ZorkUL::processCommand(Command command) {
             cout<< "kingslayer" <<endl;
         if(hasPen)
             cout<< "sus-pen";
+        if(hasBook)
+            cout<< "book";
         cout<<endl;
 
+    }else if(commandWord.compare("dab") == 0){
+        cout<< "YOU HIT AN EPIC DAB!!"<<endl;
+   if(currentRoom == arr[4]){
+   isAlive = boss.inputEncounter('b');
+   }
     }
-
+if(!isAlive && currentRoom == arr[4]){
+    cout<< "The King slayes you viciously"<<endl;
+}
 	return false;
 }
 /** COMMANDS **/
@@ -252,6 +279,10 @@ void ZorkUL::goRoom(Command command) {
         if (currentRoom == arr[8]){
             cout << "There is a Rune on the door that won't let you pass. you must decipher the mages password to continue." << endl;
 
+        }
+        //Not allowing you to leave boss fight
+        if (currentRoom == arr[4]){
+            boss = Encounter('a','b','c');
         }
         //if Statement that makes you fall to your death if you enter the courtyard from the ramparts
         if(currentRoom == arr[10]){

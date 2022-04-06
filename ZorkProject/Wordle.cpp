@@ -12,7 +12,7 @@ bool Wordle::Play() {
    cout << "The Mages pen beckons you to write a word onto the rune!"<< endl;
    cout << "The Rune has five highlighted square spaces to write on "<< endl;
    cout<<endl;
-   cout<<"The mages journal journal beside the pen has a lot of erotic overly explained"<<endl;
+   cout<<"The mages journal beside the pen has a lot of erotic overly explained"<<endl;
    cout<< "scenarios.... but it also contains a clue!"<<endl;
    cout<<endl;
    cout<<"This person never leaves his room but always manages to have fun~"<<endl;

@@ -1,6 +1,7 @@
 #ifndef ZORKUL_H_
 #define ZORKUL_H_
 
+#include "Encounter.h"
 #include "Command.h"
 #include "Parser.h"
 #include "Room.h"
@@ -26,7 +27,9 @@ private:
     void use(string item);
     bool hasSword;
     bool hasPen;
-
+    Encounter boss;
+    bool win;
+    bool hasBook;
 
 
 
