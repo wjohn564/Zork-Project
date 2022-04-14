@@ -101,10 +101,12 @@ void ZorkUL::play() {
         // Free the memory allocated by "parser.getCommand()"
         //   with ("return new Command(...)")
         delete command;
-        if(win) break;
-    }if(win){
-     cout<<   "You have slain the king and plundered the treasure behind his throne!"<<endl;
-    cout<< "You have beaten the game"<<endl;
+
+        if(win){
+            cout<<   "You have slain the king and plundered the treasure behind his throne!"<<endl;
+            cout<< "You have beaten the game"<<endl;
+            break;
+        }
     }
     cout << endl;
     cout << "end" << endl;
@@ -241,10 +243,14 @@ bool ZorkUL::processCommand(Command command) {
 
 
     }
-        if(arr[4]){
+        if(currentRoom == arr[4]){
             win = boss.sequenceComplete();
-            cout<<   "You have slain the king and plundered the treasure behind his throne!"<<endl;
-           cout<< "You have beaten the game"<<endl;
+            if (win){
+                cout<<   "You have slain the king and plundered the treasure behind his throne!"<<endl;
+                cout<< "You have beaten the game"<<endl;
+
+            }
+
         }
 
 

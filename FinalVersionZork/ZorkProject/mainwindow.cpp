@@ -78,6 +78,7 @@ void MainWindow::on_pushButton_7_clicked()
 {
     Command dab = Command("dab","");
     zork-> processCommand(dab);
+    ui->main->setText("YOU HIT AN EPIC DAB!!");
 }
 
 
@@ -85,14 +86,8 @@ void MainWindow::on_pushButton_8_clicked()
 {
     Command map = Command("map","");
     zork-> processCommand(map);
+    ui->main->setText("[The Armoury] --- [North Rampart] --- [The Library] \n        |                               |                             |       \n        |                               |                             |       \n [West Rampart] --- [The Courtyard] --- [East Rampart]\n        |                               |                             |       \n        |                               |                             |       \n[Mages Quaters] --- [South Rampart] --- [Kings Keep] \n                                        |                          \n                                 [Sketchy Rope]                   \n                                        |                          \n                                 [Rendezvous]                     \n");
 
-}
-
-
-void MainWindow::on_pushButton_9_clicked()
-{
-    Command info = Command("info","");
-    zork-> processCommand(info);
 }
 
 

@@ -2,7 +2,7 @@
 
 Encounter::Encounter(char char1, char char2, char char3)
 {
-  cout << "The king has appeared before you !!" << endl;
+//  cout << "The king has appeared before you !!" << endl;
     key[0] = char1;
     key[1] = char2;
     key[2] = char3;
